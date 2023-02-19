@@ -1,0 +1,45 @@
+from datetime import datetime
+from core.config import settings
+import sqlalchemy as sqa
+
+class AlvaraModel(settings.DBModelBase):
+    
+    __tablename__ = 'alvarás'
+
+    id: int = sqa.Column(sqa.Integer, primary_key=True)
+    ano: int = sqa.Column(sqa.Integer, default=2022)
+    imovel: int =sqa.Column(sqa.Integer, nullable=False)
+    area_total_projeto: float = sqa.Column(sqa.DECIMAL(8,2), nullable=False)
+    observacao_projeto: str = sqa.Column(sqa.String)
+    emissao_via: str = sqa.Column(sqa.String)
+    data_aprovacao: datetime = sqa.Column(sqa.DateTime)
+    registro_acesso_profissional: str = sqa.Column(sqa.String)
+    protocolo: str = sqa.Column(sqa.String)
+    situacao: str = sqa.Column(sqa.String)
+    analista: str = sqa.Column(sqa.String)
+    propietario_atual: str = sqa.Column(sqa.String)
+    cpf_cnpj: str = sqa.Column(sqa.String)
+    prof_resp_projeto: str = sqa.Column(sqa.String)
+    prof_resp_execucao: str = sqa.Column(sqa.String)
+    bci_area_unidade: float = sqa.Column(sqa.DECIMAL(8,2))
+    pavimento: int = sqa.Column(sqa.Integer)
+    procedimento: str = sqa.Column(sqa.String)
+    tipo_projeto: str = sqa.Column(sqa.String)
+    ultilizacao: str = sqa.Column(sqa.String)
+    bci_fachada: str = sqa.Column(sqa.String)
+    bci_pos_const: str = sqa.Column(sqa.String)
+    bci_modelo: str = sqa.Column(sqa.String)
+    bci_caracteristica: str = sqa.Column(sqa.String)
+    bci_tipo_constr: str = sqa.Column(sqa.String)
+    estrutura: str = sqa.Column(sqa.String)
+    paredes: str = sqa.Column(sqa.String)
+    bci_corbetura: str = sqa.Column(sqa.String)
+    bci_revest_fachada_princ: str = sqa.Column(sqa.String)
+    bci_forro: str = sqa.Column(sqa.String)
+    bci_piso: str = sqa.Column(sqa.String)
+    bci_inst_eletrica: str = sqa.Column(sqa.String)
+    status_edificacao: str = sqa.Column(sqa.String)
+    unidades: str = sqa.Column(sqa.String)
+    status_saae: int = sqa.Column(sqa.Integer)
+    matricual_saae: str = sqa.Column(sqa.String)
+    tipo_imovel: int = sqa.Column(sqa.Integer)
