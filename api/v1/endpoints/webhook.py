@@ -15,24 +15,21 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 
 from models.usuario_model import UsuarioModel
-from models.rascunho_model import ValoresRecebideModel
+from models.recebidos_webhook import ValoresRecebidoModel
 from schemas.usuario_schema import *
 from core.deps import get_current_user, get_session
-
-
 
 router = APIRouter()
 
 
 @router.post('/webhook', status_code=status.HTTP_202_ACCEPTED)
-async def webhook(request: Request, db: AsyncSession = Depends(get_session)):
-
+async def webhook(request: Request, db: AsyncSession = Depends(get_session), token = Depends(get_current_user)):
     try:
         payload = await request.json()
     
-        novo_rascunho = ValoresRecebideModel(valor_recebido=payload)
+        novo_valor = ValoresRecebidoModel(valor_recebido=payload)
         if payload:
-            db.add(novo_rascunho)
+            db.add(novo_valor)
             await db.commit()
         return payload
         return Response(status_code=status.HTTP_202_ACCEPTED)
@@ -40,9 +37,9 @@ async def webhook(request: Request, db: AsyncSession = Depends(get_session)):
         return Response(status_code=status.HTTP_202_ACCEPTED)
 
 @router.get('/recebidos')
-async def valores(db: AsyncSession = Depends(get_session)):
+async def valores(db: AsyncSession = Depends(get_session), token = Depends(get_current_user)):
     async with db as session:
-        query = select(ValoresRecebideModel)
+        query = select(ValoresRecebidoModel)
         result = await session.execute(query)
         valores = result.scalars().all()
 
